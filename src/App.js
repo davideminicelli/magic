@@ -9,11 +9,12 @@ import Displayer from "./Displayer";
 class App extends React.Component {
 
 
-  state={
+  state = {
     "objects": [],
     "message": ""
   };
 
+  
 fetcherHandler = () => {
   
   let name = "";
@@ -41,18 +42,19 @@ fetcherHandler = () => {
         this.setState({objects: arr});
         console.log(this.state)
       })
-      // .then(array => console.log(array))
       .catch(error => {console.log(`not working: ${error}`)});
     }
     
-
+    
         
     render() {
     
-      
+      let withImage = this.state.objects.filter(object => object.imageUrl);
+
+
       return (
         <div id="query-container">
-          <h1>Magic The gathering database Navigator</h1>
+          <h1>Magic The Gathering database Navigator</h1>
           <InputField  id="name-field" name="Name" type="text" placeholder="Name"/>
           <InputField  id="color" name="Color" type="select" options={["Any", "white", "blue", "black", "red", "green"]}/>
           <InputField  id="cmc" name="Cmc" type="select" options= {["Any", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}/>
@@ -60,10 +62,10 @@ fetcherHandler = () => {
           <InputField  id="subtype" name="Subtype" type="text" placeholder="subtype"/>
           <InputField  id="game-format" name="Game Format" type="select" options={["Any", "Standard", "Pioneer", "Commander", "Historic", "Legacy"]}/>
           <button onClick={this.fetcherHandler} type="button" id="submitter">Submit</button>
-          <div id="display-zone">
-            <h2 id="display-zone">Display Zone</h2>
+          <section id="display-zone">
+      <h2 id="display-zone">Display Zone - objects found: {withImage.length}</h2>
             <Displayer oggetti={this.state.objects}/>
-          </div>
+          </section>
         </div>
       );
     };
