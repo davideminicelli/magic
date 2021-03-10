@@ -1,80 +1,88 @@
-import React from "react";
-import InputField from './InputField';
-import Displayer from "./Displayer";
+import React, { useContext } from "react";
+import Displayer from "./components/Displayer";
+import InputArea from "./components/InputArea";
+import UserDeck from './components/UserDeck';
+import { QueryResultContext } from "./contexts/QueryResultContext";
+import UserDeckContextProvider from "./contexts/UserDeckContext";
+import './styles/App.scss';
 
 
 
 
 
-class App extends React.Component {
-
-
-  state = {
-    "objects": [],
-    "message": ""
-  };
-
+const App = () => {
   
-fetcherHandler = () => {
   
-  let name = "";
-  let color = "";
-  let cmc = "";
-  let subtype = "";
-  let format = "";
-  let type = "";
-  
-  if (document.getElementById("name-field").value !== "") {name = `&name=${document.getElementById("name-field").value}`};
-  if (document.getElementById("color").value !== "") {color = `&colors=${document.getElementById("color").value}`};
-  if (document.getElementById("cmc").value !== "") {cmc = `&cmc=${document.getElementById("cmc").value}`};
-  if (document.getElementById("subtype").value !== "") {subtype = `&subtypes=${document.getElementById("subtype").value}`};
-  if (document.getElementById("game-format").value !== "") {format = `&gameFormat=${document.getElementById("game-format").value}`};
-  if (document.getElementById("types").value !== "") {type = `&types=${document.getElementById("types").value}`};
-  
-      fetch(`https://api.magicthegathering.io/v1/cards?${name}${color}${cmc}${subtype}${format}${type}`)
-      .then(res => {res= res.json(); return res})
-      // .then(soned => {console.log(soned)})
+  const {queryResult, setQueryResult} = useContext(QueryResultContext);
+
+
+  const fetcherHandler = () => {
+
+    let controller = new AbortController();
+    controller.abort();
+
+    setQueryResult({
+      "objects": [],
+      'message': ' - Loading...'
+    });
+
+    let name = "";
+    let color = "";
+    let cmc = "";
+    let subtype = "";
+    let format = "";
+    let type = "";
+
+    if (document.getElementById("name-field").value !== "") { name = `&name=${document.getElementById("name-field").value}` };
+    if (document.getElementById("color").value !== "") { color = `&colors=${document.getElementById("color").value}` };
+    if (document.getElementById("cmc").value !== "") { cmc = `&cmc=${document.getElementById("cmc").value}` };
+    if (document.getElementById("subtype").value !== "") { subtype = `&subtypes=${document.getElementById("subtype").value}` };
+    if (document.getElementById("game-format").value !== "") { format = `&gameFormat=${document.getElementById("game-format").value}` };
+    if (document.getElementById("types").value !== "") { type = `&types=${document.getElementById("types").value}` };
+
+    fetch(`https://api.magicthegathering.io/v1/cards?${name}${color}${cmc}${subtype}${format}${type}`)
+      .then(res => { res = res.json(); return res })
       .then(soned => {
         let sonedArray = soned.cards.map(oggetto => oggetto);
         return sonedArray;
       })
-      .then(arr => {
-        this.setState({objects: arr});
-        console.log(this.state)
+      .then(sonedArray => {
+        let withImage = sonedArray.filter(object => object.imageUrl);
+        return withImage
       })
-      .catch(error => {console.log(`not working: ${error}`)});
-    }
-    
-    
-        
-    render() {
-    
-      let withImage = this.state.objects.filter(object => object.imageUrl);
-
-
-      return (
-        <div id="query-container">
-          <h1>Magic The Gathering database Navigator</h1>
-          <InputField  id="name-field" name="Name" type="text" placeholder="Name"/>
-          <InputField  id="color" name="Color" type="select" options={["Any", "white", "blue", "black", "red", "green"]}/>
-          <InputField  id="cmc" name="Cmc" type="select" options= {["Any", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}/>
-          <InputField  id="types" name="Type" type="select" options={["Any", "Creature", "Instant", "Sorcery", "Enchantment", "Artifact", "Planeswalker"]}/>
-          <InputField  id="subtype" name="Subtype" type="text" placeholder="subtype"/>
-          <InputField  id="game-format" name="Game Format" type="select" options={["Any", "Standard", "Pioneer", "Commander", "Historic", "Legacy"]}/>
-          <button onClick={this.fetcherHandler} type="button" id="submitter">Submit</button>
-          <section id="display-zone">
-      <h2 id="display-zone">Display Zone - objects found: {withImage.length}</h2>
-            <Displayer oggetti={this.state.objects}/>
-          </section>
-        </div>
-      );
-    };
-  
+      .then(arr => {
+        setQueryResult({
+          "objects": arr,
+          'message': ` - Cards found: ${arr.length}`
+        });
+      })
+      .catch(error => { console.log(`not working: ${error}`) });
   }
-    
-    
-  export default App;
-    
-    
-    
-   
+
+  const toggleUserDeck = ()=> {
+    let deckArea = document.getElementById('user-deck-container');
+    deckArea.classList.toggle('user-deck-expanded');
+    deckArea.classList.toggle('user-deck-contracted')
+  }
+
+  return (
+    <div id="main-body">
+      <UserDeckContextProvider>
+        <InputArea func={fetcherHandler}/>
+          <div id="results-body">
+            <h1>Magic The Gathering database Navigator</h1>
+            <Displayer oggetti={queryResult.objects} />
+          </div>
+        <UserDeck contractFunction={toggleUserDeck}/>
+      </UserDeckContextProvider>
+    </div>
+  );
+
+
+}
+
+
+export default App;
+
+
+

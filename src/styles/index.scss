@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  font-family: 'poppins', monospace;
+}
+
+
+#root {
+  font-size: 18px;
+}
+
+h1 {
+  margin: 3rem 0;
+}
+
+label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+input, select {
+  font-size: 1rem;
+}

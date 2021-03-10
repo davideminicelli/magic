@@ -1,0 +1,35 @@
+@import "variables.scss";
+
+#main-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#results-body {
+  padding-top: 8rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#user-deck-container {
+  text-align: center;
+  height: fit-content;
+  width: 100%;
+  position: fixed;
+  top: 90%;
+  transition: 0.3s ease-in-out;
+  background-color: #cce;
+  max-height: 90vh;
+  overflow: scroll;
+}
+
+.user-compressed {
+  color: blue;
+}
+
+.user-expanded {
+color: red;}

@@ -1,7 +1,22 @@
 #display-container {
+    width: 80%;
     display: flex;
-    flex-wrap: wrap;
-}
+    flex-direction: column;
+    // & h2 {
+    //   grid-column-start:1;
+    //   grid-column-end: span 2;
+    // }
+  }
+
+  #display-zone-content {
+      display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #display-zone-title {
+      text-align: center;
+  }
+
 
 .single-card {
     width: 300px;

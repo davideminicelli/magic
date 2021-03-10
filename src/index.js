@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
+import './styles/index.scss';
 import App from './App';
+import QueryResultContextProvider from './contexts/QueryResultContext';
  
 
 
 
     ReactDOM.render(
-          <div>
+          <QueryResultContextProvider>
             <App />
-          </div>,
+          </QueryResultContextProvider>,
           document.getElementById('root')
           );
