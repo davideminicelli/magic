@@ -10,7 +10,7 @@ const SingleCard = props => {
         <div className = 'single-card'>
             <h3 key = { Math.random() }>{ props.name }</h3>
         <img alt = { `${props.name}, ${ props.setName }` } src = { props.imageSrc }/>
-        <button onClick = {() => addCard({"id": props.id ,
+        <button className="add-card-button" onClick = {() => addCard({"id": props.id ,
                                         "name": props.name,
                                         "image": props.imageSrc,
                                         "cmc": props.cmc,

@@ -13,7 +13,7 @@ const QueryResultContextProvider = (props)=> {
 
         setQueryResult({
           "objects": [],
-          'message': ' - Loading...'
+          'message': 'Loading...'
         });
     
         let name = "";
@@ -43,7 +43,7 @@ const QueryResultContextProvider = (props)=> {
           .then(arr => {
             setQueryResult({
               "objects": arr,
-              'message': ` - Cards found: ${arr.length}`
+              'message': `Cards found: ${arr.length}`
             });
             console.log(queryResult)
           })

@@ -21,7 +21,7 @@ const Displayer = props => {
     })
     return (
         <section id="display-container">
-            <h2 id="display-zone-title">Display Zone{queryResult.message}</h2>
+            <h2 id="display-zone-title">{queryResult.message}</h2>
             <div id="display-zone-content">
                 {mappedObjs}
             </div>

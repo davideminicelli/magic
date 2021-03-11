@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'poppins', monospace;
+  font-family: 'Sorts Mill Goudy', serif;
 }
 
 
@@ -9,7 +9,16 @@ body {
 }
 
 h1 {
+  font-size: 3.5rem;
   margin: 3rem 0;
+}
+
+h2 {
+ font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.3rem;
 }
 
 label {
