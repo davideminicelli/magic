@@ -1,14 +1,20 @@
+@import "variables.scss";
+
 #inputArea {
     padding: 1rem 0;
     width: 100%;
     justify-content: space-around;
     display: flex;
     align-items: center;
-    background-color: #aaa;
+    background-color: $magic-red;
     position: fixed;
     top: 0;
   }
 
-//   .input-field {
-//     margin: 0 0 25px;
-//   }
+  label {
+    color: $almost-white;
+  }
+
+  input, select {
+    border: none;
+  }

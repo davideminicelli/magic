@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 #display-container {
     width: 80%;
     display: flex;
@@ -35,4 +37,10 @@ img {
 
 .add-card-button {
   margin-top: 1em;
+  border-color: $magic-red;
+  color: $magic-red;
+  &:hover {
+    background-color: $magic-red;
+    color: $almost-white;
+  }
 }

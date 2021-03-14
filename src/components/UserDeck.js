@@ -15,7 +15,10 @@ const UserDeck = (props)=> {
 
     return (
         <section id="user-deck-container" className= "user-compressed">
-            <h2 onClick={() => userSizeToggle("user-deck-container")}>User Deck List</h2>
+            <h2 onClick={() => userSizeToggle("user-deck-container")}>
+                {/* <img src="../public/UserDeck.svg" alt="User Deck Logo" width="100" height="100"></img> */}
+                User Deck List
+            </h2>
             <div id="deck-list">{deckList}</div>
         </section>
     )

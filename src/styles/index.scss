@@ -1,3 +1,6 @@
+@import "variables.scss";
+
+
 body {
   margin: 0;
   font-family: 'Sorts Mill Goudy', serif;
@@ -15,6 +18,7 @@ h1 {
 
 h2 {
  font-size: 2rem;
+ color: $almost-white;
 }
 
 h3 {
